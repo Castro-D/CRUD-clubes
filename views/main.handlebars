@@ -1,0 +1,18 @@
+<table>
+    <thead>
+        <tr>
+            <th>Equipo</th>
+            <th>Pais</th>
+            <th>Accion</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each equipos}}
+          <tr>
+            <td>{{this.name}}</td>
+            <td>{{this.area.name}}</td>
+            <td>Ver, editar, eliminar</td>
+          </tr>
+        {{/each}}
+    </tbody>
+</table>
