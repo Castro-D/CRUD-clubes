@@ -4,6 +4,7 @@ const equipos = require('./data/equipos.json');
 
 const app = express();
 const PUERTO = 8080;
+
 app.set('view engine', 'handlebars');
 app.engine('handlebars', handlebars({
   layoutsDir: `${__dirname}/views/layouts`,
@@ -11,7 +12,17 @@ app.engine('handlebars', handlebars({
 }));
 
 app.get('/', (req, res) => {
-  res.render('main', { layout: 'index', equipos });
+  res.render('main', {
+    layout: 'index',
+    equipos,
+  });
+});
+
+app.get('/equipo/:id/ver', (req, res) => {
+  res.render('Equipo', {
+    layout: 'index',
+    equipo: equipos[req.params.id],
+  });
 });
 
 app.listen(PUERTO, () => {

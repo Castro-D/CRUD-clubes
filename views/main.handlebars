@@ -1,3 +1,5 @@
+<h1>CRUD DE CLUBES</h1>
+<h2>Hay {{equipos.length}} equipos</h2>
 <table>
     <thead>
         <tr>
@@ -11,7 +13,7 @@
           <tr>
             <td>{{this.name}}</td>
             <td>{{this.area.name}}</td>
-            <td>Ver, editar, eliminar</td>
+            <td><a href="/equipo/{{@index}}/ver">Ver</a> <a href="#">Editar</a> <a href="#">Eliminar</a></td>
           </tr>
         {{/each}}
     </tbody>
