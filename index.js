@@ -25,6 +25,8 @@ app.get('/equipo/:id/ver', (req, res) => {
   });
 });
 
+
+
 app.listen(PUERTO, () => {
   console.log(`Escuchando requests en https://localhost:${PUERTO}`);
 });

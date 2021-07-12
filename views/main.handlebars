@@ -1,19 +1,18 @@
 <h1>CRUD DE CLUBES</h1>
 <h2>Hay {{equipos.length}} equipos</h2>
+<a href="/equipo/crear">Agregar</a>
 <table>
     <thead>
         <tr>
             <th>Equipo</th>
             <th>Pais</th>
-            <th>Accion</th>
         </tr>
     </thead>
     <tbody>
         {{#each equipos}}
           <tr>
             <td>{{this.name}}</td>
-            <td>{{this.area.name}}</td>
-            <td><a href="/equipo/{{@index}}/ver">Ver</a> <a href="#">Editar</a> <a href="#">Eliminar</a></td>
+            <td>{{this.area.name}}<a href="/equipo/{{@index}}/ver">Ver</a></td>
           </tr>
         {{/each}}
     </tbody>
