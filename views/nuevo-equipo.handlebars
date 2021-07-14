@@ -1,0 +1,10 @@
+<h2>Crear equipo</h2>
+{{#if data.mensaje}}
+  <p>{{data.mensaje}}</p>
+  <img src="/uploads/{{data.nombreArchivo}}" />
+{{/if}}
+
+<form action="/equipo/crear" method="POST" enctype="multipart/form-data" />
+  <input type="file" name="imagen" />
+  <input type="submit" value="Subir" />
+</form>

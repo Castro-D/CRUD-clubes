@@ -18,7 +18,8 @@
   "homepage": "https://github.com/Castro-D/CRUD-clubes#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "express-handlebars": "^5.3.2"
+    "express-handlebars": "^5.3.2",
+    "multer": "^1.4.2"
   },
   "devDependencies": {
     "eslint": "^7.30.0",
