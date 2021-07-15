@@ -1,10 +1,13 @@
 <h2>Crear equipo</h2>
 {{#if data.mensaje}}
   <p>{{data.mensaje}}</p>
-  <img src="/uploads/{{data.nombreArchivo}}" />
+  <img src="/{{data.nombreArchivo}}" />
 {{/if}}
 
-<form action="/equipo/crear" method="POST" enctype="multipart/form-data" />
+<form action="/equipo/crear" method="POST" enctype="multipart/form-data">
+  <input type="text" name='name' placeholder="Nombre" />
+  <input type="text" name='area.name' placeholder="Pais" />
+  <input type="text" name='tla' placeholder="Siglas" />
   <input type="file" name="imagen" />
   <input type="submit" value="Subir" />
 </form>

@@ -1,6 +1,7 @@
 const express = require('express');
 const handlebars = require('express-handlebars');
 const multer = require('multer');
+const fs = require('fs');
 const equipos = require('./data/equipos.json');
 
 const upload = multer({ dest: './uploads' });
@@ -13,7 +14,9 @@ app.engine('handlebars', handlebars({
   partialsDir: `${__dirname}/views/partials/`,
 }));
 
+// middleware
 app.use(express.static(`${__dirname}/uploads`));
+app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
   res.render('main', {
@@ -36,14 +39,16 @@ app.get('/equipo/crear', (req, res) => {
 });
 
 app.post('/equipo/crear', upload.single('imagen'), (req, res) => {
-  console.log(req.file);
-  res.render('nuevo-equipo', {
-    layout: 'index',
-    data: {
-      mensaje: 'Exito!',
-      nombreArchivo: req.file.filename,
-    },
+  fs.readFile('./data/equipos.json', (err, data) => {
+    const json = JSON.parse(data);
+    json.push(req.body);
+    fs.writeFile('./data/equipos.json', JSON.stringify(json), () => {
+      if (err) {
+        console.error(err);
+      }
+    });
   });
+  res.redirect('/');
 });
 
 app.listen(PUERTO, () => {
