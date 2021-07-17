@@ -39,16 +39,9 @@ app.get('/equipo/crear', (req, res) => {
 });
 
 app.post('/equipo/crear', upload.single('imagen'), (req, res) => {
-  fs.readFile('./data/equipos.json', (err, data) => {
-    const json = JSON.parse(data);
-    json.push(req.body);
-    fs.writeFile('./data/equipos.json', JSON.stringify(json), () => {
-      if (err) {
-        console.error(err);
-      }
-    });
-  });
-  res.redirect('/');
+  equipos.push({ name: req.body.name, area: { name: req.body.country }, tla: req.body.tla });
+  fs.writeFileSync('./data/equipos.json', JSON.stringify(equipos));
+  res.redirect(303, '/');
 });
 
 app.listen(PUERTO, () => {
