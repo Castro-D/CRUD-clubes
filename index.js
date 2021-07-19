@@ -75,6 +75,12 @@ app.post('/equipo/crear', upload.single('imagen'), (req, res) => {
   res.redirect(303, '/');
 });
 
+app.delete('/equipo/:id', (req, res) => {
+  equipos.splice(req.params.id, 1);
+  fs.writeFileSync('./data/equipos.json', JSON.stringify(equipos));
+  res.json({ redirect: '/' });
+});
+
 app.listen(PUERTO, () => {
   console.log(`Escuchando requests en https://localhost:${PUERTO}`);
 });

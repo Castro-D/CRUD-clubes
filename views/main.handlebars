@@ -12,8 +12,27 @@
         {{#each equipos}}
           <tr>
             <td>{{this.name}}</td>
-            <td>{{this.area.name}}<a href="/equipo/{{@index}}/ver">Ver</a></td>
+            <td>{{this.area.name}}<a href="/equipo/{{@index}}/ver">Ver</a><button class='borrar' data-doc='{{@index}}'>Borrar</button></td>
           </tr>
         {{/each}}
     </tbody>
 </table>
+<script>
+  const botones = document.querySelectorAll('button.borrar');
+  botones.forEach((boton) => {
+    boton.addEventListener('click', (e) => {
+    const endpoint = `/equipo/${boton.dataset.doc}`
+    fetch(endpoint, {
+      method: 'DELETE',
+      headers : { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+       }
+    })
+    .then((response) => response.json())
+    .then((data) => window.location.href = data.redirect)
+    })
+  })
+  
+
+</script>
