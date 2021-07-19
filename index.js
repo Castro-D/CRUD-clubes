@@ -2,9 +2,34 @@ const express = require('express');
 const handlebars = require('express-handlebars');
 const multer = require('multer');
 const fs = require('fs');
+const path = require('path');
 const equipos = require('./data/equipos.json');
 
-const upload = multer({ dest: './uploads' });
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, './uploads');
+  },
+
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+
+const filtroArchivo = (req, file, cb) => {
+  const filetypes = /jpeg|jpg|svg/;
+  const mimetype = filetypes.test(file.mimetype);
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+
+  if (mimetype && extname) {
+    cb(null, true);
+  }
+  cb(null, false);
+};
+
+const upload = multer({
+  storage,
+  filtroArchivo,
+});
 const app = express();
 const PUERTO = 8080;
 
@@ -39,7 +64,13 @@ app.get('/equipo/crear', (req, res) => {
 });
 
 app.post('/equipo/crear', upload.single('imagen'), (req, res) => {
-  equipos.push({ name: req.body.name, area: { name: req.body.country }, tla: req.body.tla });
+  equipos.push({
+    name: req.body.name,
+    area: { name: req.body.country },
+    tla: req.body.tla,
+    clubColors: req.body.colores,
+    crestUrl: `/${req.file.originalname}`,
+  });
   fs.writeFileSync('./data/equipos.json', JSON.stringify(equipos));
   res.redirect(303, '/');
 });
