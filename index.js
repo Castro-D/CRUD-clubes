@@ -3,7 +3,8 @@ const handlebars = require('express-handlebars');
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
-const equipos = require('./data/equipos.json');
+const { v4: uuidv4 } = require('uuid');
+let equipos = require('./data/equipos.json');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -53,7 +54,8 @@ app.get('/', (req, res) => {
 app.get('/equipo/:id/ver', (req, res) => {
   res.render('Equipo', {
     layout: 'index',
-    equipo: equipos[req.params.id],
+    // devuelve objeto del equipo con el id especificado
+    equipo: equipos.find((x) => x.id === req.params.id),
   });
 });
 
@@ -65,6 +67,7 @@ app.get('/equipo/crear', (req, res) => {
 
 app.post('/equipo/crear', upload.single('imagen'), (req, res) => {
   equipos.push({
+    id: uuidv4(),
     name: req.body.name,
     area: { name: req.body.country },
     tla: req.body.tla,
@@ -76,7 +79,7 @@ app.post('/equipo/crear', upload.single('imagen'), (req, res) => {
 });
 
 app.delete('/equipo/:id', (req, res) => {
-  equipos.splice(req.params.id, 1);
+  equipos = equipos.filter((equipo) => equipo.id !== req.params.id);
   fs.writeFileSync('./data/equipos.json', JSON.stringify(equipos));
   res.json({ redirect: '/' });
 });

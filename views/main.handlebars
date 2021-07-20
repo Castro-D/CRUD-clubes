@@ -12,7 +12,7 @@
         {{#each equipos}}
           <tr>
             <td>{{this.name}}</td>
-            <td>{{this.area.name}}<a href="/equipo/{{@index}}/ver">Ver</a><button class='borrar' data-doc='{{@index}}'>Borrar</button></td>
+            <td>{{this.area.name}}<a href="/equipo/{{this.id}}/ver">Ver</a><button class='borrar' data-doc={{this.id}}>Borrar</button></td>
           </tr>
         {{/each}}
     </tbody>
