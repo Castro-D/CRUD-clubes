@@ -4,6 +4,7 @@ const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
+const methodOverride = require('method-override');
 let equipos = require('./data/equipos.json');
 
 const storage = multer.diskStorage({
@@ -43,6 +44,7 @@ app.engine('handlebars', handlebars({
 // middleware
 app.use(express.static(`${__dirname}/uploads`));
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
 
 app.get('/', (req, res) => {
   res.render('main', {
@@ -82,6 +84,35 @@ app.delete('/equipo/:id', (req, res) => {
   equipos = equipos.filter((equipo) => equipo.id !== req.params.id);
   fs.writeFileSync('./data/equipos.json', JSON.stringify(equipos));
   res.json({ redirect: '/' });
+});
+
+app.get('/equipo/:id/editar', (req, res) => {
+  res.render('editar-equipo', {
+    layout: 'index',
+    // devuelve objeto del equipo con el id especificado
+    equipo: equipos.find((x) => x.id === req.params.id),
+  });
+});
+
+app.put('/equipo/:id/editar', upload.single('imagen'), (req, res) => {
+  const equipo = equipos.find((x) => x.id === req.params.id);
+  equipo.name = req.body.name;
+  equipo.area.name = req.body.country;
+  equipo.tla = req.body.tla;
+  equipo.clubColors = req.body.colores;
+  if (req.file) {
+    equipo.crestUrl = `/${req.file.originalname}`;
+  }
+  const equipoMapeado = equipos.map((obj) => {
+    if (equipo.id === obj.id) {
+      const resultado = Object.assign(obj, equipo);
+      return resultado;
+    }
+    return obj;
+  });
+  console.log(equipoMapeado);
+  fs.writeFileSync('./data/equipos.json', JSON.stringify(equipoMapeado), 'utf-8');
+  res.redirect(303, '/');
 });
 
 app.listen(PUERTO, () => {
