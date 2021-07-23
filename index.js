@@ -50,6 +50,7 @@ app.get('/', (req, res) => {
   res.render('main', {
     layout: 'index',
     equipos,
+    css: 'tabla-estilos.css',
   });
 });
 

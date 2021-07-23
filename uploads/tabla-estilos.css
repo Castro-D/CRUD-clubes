@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+.tabla-estilos {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ebedf0;
+}
+
+.tabla-estilos thead tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
+}
+
+.tabla-estilos th,
+.tabla-estilos td {
+    padding: 12px 15px;
+}
+
+.tabla-estilos tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+.botones {
+  text-decoration: none;
+  color: #00a584;
+  margin-left: 50px;
+  margin-right: 10px;
+}

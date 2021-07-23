@@ -1,24 +1,26 @@
-<h1>CRUD DE CLUBES</h1>
-<h2>Hay {{equipos.length}} equipos</h2>
-<a href="/equipo/crear">Agregar</a>
-<table>
-    <thead>
-        <tr>
-            <th>Equipo</th>
-            <th>Pais</th>
-        </tr>
-    </thead>
-    <tbody>
-        {{#each equipos}}
+<div class='container'>
+  <h1>CRUD DE CLUBES</h1>
+  <h2>Hay {{equipos.length}} equipos</h2>
+  <a href="/equipo/crear">Agregar</a>
+  <table class='tabla-estilos'>
+      <thead>
           <tr>
-            <td>{{this.name}}</td>
-            <td>{{this.area.name}}<a href="/equipo/{{this.id}}/ver">Ver</a><button class='borrar' data-doc={{this.id}}>Borrar</button></td>
+              <th>Equipo</th>
+              <th>Pais</th>
           </tr>
-        {{/each}}
-    </tbody>
-</table>
+      </thead>
+      <tbody>
+          {{#each equipos}}
+            <tr>
+              <td>{{this.name}}</td>
+              <td>{{this.area.name}}<a class='botones' href="/equipo/{{this.id}}/ver">Ver</a><a class='borrar' data-doc={{this.id}}>Borrar</a></td>
+            </tr>
+          {{/each}}
+      </tbody>
+  </table>
+</div>
 <script>
-  const botones = document.querySelectorAll('button.borrar');
+  const botones = document.querySelectorAll('a.borrar');
   botones.forEach((boton) => {
     boton.addEventListener('click', (e) => {
     const endpoint = `/equipo/${boton.dataset.doc}`
