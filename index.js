@@ -94,6 +94,7 @@ app.get('/equipo/:id/editar', (req, res) => {
     layout: 'index',
     // devuelve objeto del equipo con el id especificado
     equipo: equipos.find((x) => x.id === req.params.id),
+    css: 'forms.css',
   });
 });
 
