@@ -66,6 +66,7 @@ app.get('/equipo/:id/ver', (req, res) => {
 app.get('/equipo/crear', (req, res) => {
   res.render('nuevo-equipo', {
     layout: 'index',
+    css: 'forms.css',
   });
 });
 
