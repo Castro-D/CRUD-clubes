@@ -59,6 +59,7 @@ app.get('/equipo/:id/ver', (req, res) => {
     layout: 'index',
     // devuelve objeto del equipo con el id especificado
     equipo: equipos.find((x) => x.id === req.params.id),
+    css: 'pagina-ver.css',
   });
 });
 
@@ -111,7 +112,6 @@ app.put('/equipo/:id/editar', upload.single('imagen'), (req, res) => {
     }
     return obj;
   });
-  console.log(equipoMapeado);
   fs.writeFileSync('./data/equipos.json', JSON.stringify(equipoMapeado), 'utf-8');
   res.redirect(303, '/');
 });
