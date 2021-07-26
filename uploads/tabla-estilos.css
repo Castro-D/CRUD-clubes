@@ -10,7 +10,6 @@
   border-collapse: collapse;
   margin: 0 0 25px 0;
   font-size: 0.9em;
-  min-width: 400px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   z-index: 100;
 }
@@ -97,4 +96,23 @@ span {
 
 .sub-container a {
   z-index: 100;
+}
+
+@media screen and (max-width: 600px) {
+  .tabla-estilos {
+    width: 180px;
+    font-size: 0.7em;
+  }
+
+  h2 {
+    font-size: 15px;
+  }
+
+  .sub-container {
+    width: 267px;
+  }
+
+  .boton-agregar {
+    font-size: 10px;
+  }
 }
